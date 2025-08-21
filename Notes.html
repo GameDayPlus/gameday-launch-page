@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamedayPlus - College Football Analytics & EV Betting Tools Platform</title>
+    <meta name="description" content="The all-in-one college football analytics and betting intelligence platform. AI predictions, EV calculator, arbitrage detection, live odds, and community.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --gradient-5-stop: linear-gradient(135deg, 
+                rgb(204, 0, 28) 0%, 
+                rgb(161, 0, 20) 25%, 
+                rgb(115, 0, 13) 50%, 
+                rgb(161, 0, 20) 75%, 
+                rgb(204, 0, 28) 100%
+            );
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,249,250,0.95) 50%, rgba(255,255,255,0.98) 100%);
+            backdrop-filter: blur(10px);
+        }
+
+        .gradient-text {
+            background: var(--gradient-5-stop);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-bg {
+            background: var(--gradient-5-stop);
+        }
+
+        .gradient-border {
+            border: 2px solid;
+            border-image: var(--gradient-5-stop) 1;
+        }
+
+        /* Glassmorphism effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(204, 0, 28, 0.2);
+            box-shadow: 0 8px 32px rgba(204, 0, 28, 0.15);
+        }
+
+        /* Sleek angled laptop design */
+        .laptop-container {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+
+        .laptop-mockup {
+            transform: rotateX(12deg) rotateY(-8deg) rotateZ(2deg);
+            transition: all 0.6s ease;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+        }
+
+        .laptop-mockup:hover {
+            transform: rotateX(8deg) rotateY(-5deg) rotateZ(1deg) scale(1.02);
+            filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.4));
+        }
+
+        .laptop-base {
+            background: linear-gradient(145deg, #e8e8e8, #f5f5f5);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .laptop-screen {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .laptop-bezel {
+            background: #000;
+            border-radius: 6px;
+        }
+
+        .laptop-keyboard {
+            background: linear-gradient(145deg, #d0d0d0, #e8e8e8);
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Desktop monitor design */
+        .monitor-container {
+            perspective: 1000px;
+        }
+
+        .monitor-mockup {
+            transform: rotateX(5deg) rotateY(-3deg);
+            transition: all 0.6s ease;
+            filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.25));
+        }
+
+        .monitor-mockup:hover {
+            transform: rotateX(2deg) rotateY(-1deg) scale(1.01);
+            filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.35));
+        }
+
+        .monitor-screen {
+            background: linear-gradient(145deg, #1a1a1a, #000);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .monitor-stand {
+            background: linear-gradient(145deg, #c0c0c0, #e0e0e0);
+        }
+
+        /* iPhone mockups */
+        .phone-container {
+            perspective: 800px;
+        }
+
+        .phone-mockup {
+            transform: rotateX(5deg) rotateY(-2deg);
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.2));
+        }
+
+        .phone-mockup:hover {
+            transform: rotateX(2deg) rotateY(-1deg) scale(1.05);
+            filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.3));
+        }
+
+        .phone-frame {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 25px;
+            position: relative;
+        }
+
+        .phone-screen {
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        /* Animations */
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .shine-effect:hover::before {
+            left: 100%;
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            background: rgba(204, 0, 28, 0.6);
+            border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Countdown timer */
+        .countdown-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(204, 0, 28, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .countdown-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(204, 0, 28, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden">
+    <!-- Particles Background -->
+    <div class="fixed inset-0 pointer-events-none z-0" id="particles"></div>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 min-h-screen flex items-center justify-center px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-black mb-6 gradient-text">
+                WELCOME TO GAMEDAY+
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-4 font-bold">
+                The Ultimate College Football Intelligence Platform
+            </p>
+            <p class="text-sm text-gray-500 mb-8">
+                Week Zero Coverage | Kansas State vs Iowa Predictions | Early Season Analytics
+            </p>
+
+            <!-- Countdown Timer -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold gradient-text mb-6">Full Launch Countdown</h3>
+                <div class="flex justify-center gap-4 flex-wrap" id="countdown">
+                    <div class="countdown-card rounded-xl p-4 min-w-20">
+                        <div class="text-3xl font-black gradient-text" id="days">--</div>
+                        <div class="text-xs uppercase tracking-wider text-gray-600">Days</div>
+                    </div>
+                    <div class="countdown-card rounded-xl p-4 min-w-20">
+                        <div class="text-3xl font-black gradient-text" id="hours">--</div>
+                        <div class="text-xs uppercase tracking-wider text-gray-600">Hours</div>
+                    </div>
+                    <div class="countdown-card rounded-xl p-4 min-w-20">
+                        <div class="text-3xl font-black gradient-text" id="minutes">--</div>
+                        <div class="text-xs uppercase tracking-wider text-gray-600">Minutes</div>
+                    </div>
+                    <div class="countdown-card rounded-xl p-4 min-w-20">
+                        <div class="text-3xl font-black gradient-text" id="seconds">--</div>
+                        <div class="text-xs uppercase tracking-wider text-gray-600">Seconds</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <a href="https://testflight.apple.com/join/f5pCmXyr" target="_blank" 
+               class="inline-block gradient-bg text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider text-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 shine-effect">
+                Join Beta on TestFlight
+            </a>
+        </div>
+    </section>
+
+    <!-- Desktop/Laptop Showcase Section -->
+    <section class="relative z-10 py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-black text-center mb-4 gradient-text">
+                Web Platform Experience
+            </h2>
+            <p class="text-xl text-gray-600 text-center mb-16">
+                Professional analytics dashboard for comprehensive college football intelligence
+            </p>
+
+            <!-- Desktop and Laptop Container -->
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Desktop Monitor -->
+                <div class="monitor-container flex justify-center">
+                    <div class="monitor-mockup">
+                        <div class="monitor-screen w-96 h-60 relative">
+                            <div class="absolute inset-2 bg-white rounded-md overflow-hidden">
+                                <img src="https://cdn.dribbble.com/userupload/13807060/file/original-f8a69951930cca032ca202410f9d5be4.png" 
+                                     alt="Sports Analytics Dashboard" 
+                                     class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="monitor-stand w-16 h-8 mx-auto rounded-b-lg"></div>
+                        <div class="w-24 h-3 bg-gray-300 mx-auto rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Laptop -->
+                <div class="laptop-container flex justify-center">
+                    <div class="laptop-mockup">
+                        <div class="laptop-screen w-80 h-52">
+                            <div class="laptop-bezel absolute inset-2 overflow-hidden">
+                                <img src="https://miriamaraujo.com/previews/sports-analytics-dashboard-ux-design.634d3ff8142642.74838842.png" 
+                                     alt="College Football Analytics" 
+                                     class="w-full h-full object-cover rounded">
+                            </div>
+                        </div>
+                        <div class="laptop-keyboard w-80 h-12 relative">
+                            <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-400 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Features -->
+            <div class="grid md:grid-cols-2 gap-8 mt-16 max-w-4xl mx-auto">
+                <div class="glass-card rounded-xl p-6">
+                    <h3 class="text-xl font-bold gradient-text mb-3">Desktop Analytics</h3>
+                    <p class="text-gray-600">Comprehensive dashboard with advanced charts, multiple data streams, and professional-grade analytics tools for deep college football research.</p>
+                </div>
+                <div class="glass-card rounded-xl p-6">
+                    <h3 class="text-xl font-bold gradient-text mb-3">Laptop Portability</h3>
+                    <p class="text-gray-600">Full-featured betting interface with live odds, line movements, and arbitrage detection - perfect for on-the-go analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile App Showcase Section -->
+    <section class="relative z-10 py-20 px-4 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-black text-center mb-4 gradient-text">
+                Mobile App Experience
+            </h2>
+            <p class="text-xl text-gray-600 text-center mb-16">
+                iOS app for real-time predictions, community engagement, and quick betting decisions
+            </p>
+
+            <!-- iPhone Mockups Grid -->
+            <div class="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+                <!-- iPhone 1 - Analytics -->
+                <div class="phone-container flex justify-center">
+                    <div class="phone-mockup float-animation" style="animation-delay: 0s;">
+                        <div class="phone-frame w-48 h-96 p-1">
+                            <div class="phone-screen w-full h-full relative">
+                                <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-20 h-6 bg-black rounded-full"></div>
+                                <div class="absolute inset-4 bg-white rounded-2xl overflow-hidden">
+                                    <img src="https://img.covers.com/betting/images/BetMGM_screens_May2025.png" 
+                                         alt="GamedayPlus Analytics" 
+                                         class="w-full h-full object-cover object-top">
+                                </div>
+                                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white rounded-full opacity-60"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- iPhone 2 - Betting Interface -->
+                <div class="phone-container flex justify-center">
+                    <div class="phone-mockup float-animation" style="animation-delay: 1s;">
+                        <div class="phone-frame w-48 h-96 p-1">
+                            <div class="phone-screen w-full h-full relative">
+                                <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-20 h-6 bg-black rounded-full"></div>
+                                <div class="absolute inset-4 bg-white rounded-2xl overflow-hidden">
+                                    <img src="https://www.sportsbettingdime.com/app/uploads/media/3/FanDuel_College-Football-Screen.png" 
+                                         alt="College Football Betting" 
+                                         class="w-full h-full object-cover object-top">
+                                </div>
+                                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white rounded-full opacity-60"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- iPhone 3 - EV Calculator -->
+                <div class="phone-container flex justify-center">
+                    <div class="phone-mockup float-animation" style="animation-delay: 2s;">
+                        <div class="phone-frame w-48 h-96 p-1">
+                            <div class="phone-screen w-full h-full relative">
+                                <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-20 h-6 bg-black rounded-full"></div>
+                                <div class="absolute inset-4 bg-white rounded-2xl overflow-hidden">
+                                    <img src="https://img.covers.com/betting/images/bet365_screens_Aug2025.png" 
+                                         alt="EV Calculator Tools" 
+                                         class="w-full h-full object-cover object-top">
+                                </div>
+                                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white rounded-full opacity-60"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Features -->
+            <div class="grid md:grid-cols-3 gap-6 mt-16 max-w-4xl mx-auto">
+                <div class="glass-card rounded-xl p-6 text-center">
+                    <div class="text-3xl gradient-text mb-3">📊</div>
+                    <h3 class="text-lg font-bold gradient-text mb-2">Live Analytics</h3>
+                    <p class="text-gray-600 text-sm">Real-time data and predictions for all college football games</p>
+                </div>
+                <div class="glass-card rounded-xl p-6 text-center">
+                    <div class="text-3xl gradient-text mb-3">🎯</div>
+                    <h3 class="text-lg font-bold gradient-text mb-2">Smart Betting</h3>
+                    <p class="text-gray-600 text-sm">EV calculator and arbitrage detection on mobile</p>
+                </div>
+                <div class="glass-card rounded-xl p-6 text-center">
+                    <div class="text-3xl gradient-text mb-3">👥</div>
+                    <h3 class="text-lg font-bold gradient-text mb-2">Community</h3>
+                    <p class="text-gray-600 text-sm">Connect with college football fans and share insights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="relative z-10 py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-black text-center mb-16 gradient-text">
+                Platform Features
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-xl p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-2xl gradient-text mb-4"><i class="fas fa-brain"></i></div>
+                    <h3 class="text-xl font-bold gradient-text mb-3">AI-Powered Predictions</h3>
+                    <p class="text-gray-600">Advanced machine learning models analyze 500+ data points for superior college football picks including Week Zero games.</p>
+                </div>
+
+                <div class="glass-card rounded-xl p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-2xl gradient-text mb-4"><i class="fas fa-calculator"></i></div>
+                    <h3 class="text-xl font-bold gradient-text mb-3">EV Calculator & Arbitrage</h3>
+                    <p class="text-gray-600">Professional-grade expected value calculations and real-time arbitrage detection across multiple sportsbooks.</p>
+                </div>
+
+                <div class="glass-card rounded-xl p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-2xl gradient-text mb-4"><i class="fas fa-football-ball"></i></div>
+                    <h3 class="text-xl font-bold gradient-text mb-3">Week Zero Coverage</h3>
+                    <p class="text-gray-600">Comprehensive early season analysis including Kansas State vs Iowa with detailed predictions and betting insights.</p>
+                </div>
+
+                <div class="glass-card rounded-xl p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-2xl gradient-text mb-4"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="text-xl font-bold gradient-text mb-3">Live Odds & Movement</h3>
+                    <p class="text-gray-600">Track line movements, steam moves, and consensus data in real-time across all major sportsbooks.</p>
+                </div>
+
+                <div class="glass-card rounded-xl p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-2xl gradient-text mb-4"><i class="fas fa-users"></i></div>
+                    <h3 class="text-xl font-bold gradient-text mb-3">FanHub Community</h3>
+                    <p class="text-gray-600">Connect with college football fans, share insights, and participate in prediction contests.</p>
+                </div>
+
+                <div class="glass-card rounded-xl p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-2xl gradient-text mb-4"><i class="fas fa-cogs"></i></div>
+                    <h3 class="text-xl font-bold gradient-text mb-3">Advanced Analytics</h3>
+                    <p class="text-gray-600">Deep dive into team metrics, player performance, and historical trends with professional-grade tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="relative z-10 py-20 px-4 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-black text-center mb-16 gradient-text">
+                Frequently Asked Questions
+            </h2>
+
+            <div class="space-y-4">
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <div class="p-6 cursor-pointer hover:bg-gray-50 transition-colors" onclick="toggleFAQ(0)">
+                        <h3 class="font-bold text-gray-800 flex justify-between items-center">
+                            Does GamedayPlus take wagers or operate as a sportsbook?
+                            <i class="fas fa-chevron-down transform transition-transform" id="icon-0"></i>
+                        </h3>
+                        <div class="mt-4 text-gray-600 hidden" id="answer-0">
+                            No. GamedayPlus is an analytics and community platform. We don't accept or process wagers.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <div class="p-6 cursor-pointer hover:bg-gray-50 transition-colors" onclick="toggleFAQ(1)">
+                        <h3 class="font-bold text-gray-800 flex justify-between items-center">
+                            What betting tools are included?
+                            <i class="fas fa-chevron-down transform transition-transform" id="icon-1"></i>
+                        </h3>
+                        <div class="mt-4 text-gray-600 hidden" id="answer-1">
+                            AI model-driven predictions, expected value (EV) calculators, line movement tracking, and arbitrage detection features.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <div class="p-6 cursor-pointer hover:bg-gray-50 transition-colors" onclick="toggleFAQ(2)">
+                        <h3 class="font-bold text-gray-800 flex justify-between items-center">
+                            Do you cover Week Zero college football games?
+                            <i class="fas fa-chevron-down transform transition-transform" id="icon-2"></i>
+                        </h3>
+                        <div class="mt-4 text-gray-600 hidden" id="answer-2">
+                            Yes! GamedayPlus provides comprehensive coverage of Week Zero games, including early season matchups like Kansas State vs Iowa, with AI predictions and betting analytics.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <div class="p-6 cursor-pointer hover:bg-gray-50 transition-colors" onclick="toggleFAQ(3)">
+                        <h3 class="font-bold text-gray-800 flex justify-between items-center">
+                            When does GamedayPlus fully launch?
+                            <i class="fas fa-chevron-down transform transition-transform" id="icon-3"></i>
+                        </h3>
+                        <div class="mt-4 text-gray-600 hidden" id="answer-3">
+                            GamedayPlus launches August 30th, 2025. Beta access is available now via TestFlight.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 py-12 px-4 border-t border-gray-200">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="text-gray-600 mb-4">© 2025 GamedayPlus. Built for College Football Superfans.</div>
+            <div class="text-sm text-gray-500">
+                For informational and educational purposes only. We do not accept wagers. Must be 21+ to bet. 
+                If you have a gambling problem, please seek help at 
+                <a href="https://www.ncpgambling.org/" class="gradient-text hover:underline">ncpgambling.org</a>.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 100;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 4 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Countdown timer
+        function updateCountdown() {
+            const launchDate = new Date('August 30, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = '<div class="countdown-card rounded-xl p-8"><div class="text-3xl font-black gradient-text">LAUNCHED!</div></div>';
+            }
+        }
+
+        // FAQ toggle
+        function toggleFAQ(index) {
+            const answer = document.getElementById(`answer-${index}`);
+            const icon = document.getElementById(`icon-${index}`);
+            
+            answer.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
+</body>
+</html>

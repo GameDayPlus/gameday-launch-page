@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamedayPlus - College Football Analytics & EV Betting Tools Platform | Week Zero Games</title>
+    <meta name="description" content="The all-in-one college football analytics and betting intelligence platform. AI predictions, EV calculator, arbitrage detection, live odds, and community. Get predictions for Week Zero games including Kansas State vs Iowa. Beta launching August 30th.">
+    <meta name="keywords" content="college football, week zero, Kansas State Iowa, CFB predictions, betting analytics, college football games, week 0, early season games, Iowa State Kansas, college football betting, CFB analytics">
+    <link rel="canonical" href="https://gameday-plus.com/">
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#CC001C">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="GDAPP.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="GDAPP.jpg">
+    <link rel="apple-touch-icon" href="GDAPP.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="GDAPP.jpg">
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="GDAPP.jpg">
+    <link rel="icon" type="image/jpeg" sizes="16x16" href="GDAPP.jpg">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="GamedayPlus - College Football Analytics & Week Zero Predictions">
+    <meta property="og:description" content="AI-powered CFB predictions, EV calculator, arbitrage detection for Week Zero games including Kansas State vs Iowa. Beta launching August 30th.">
+    <meta property="og:url" content="https://gameday-plus.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://gameday-plus.com/GDAPP.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GamedayPlus - Week Zero College Football Predictions">
+    <meta name="twitter:description" content="Get AI predictions for Week Zero CFB games. Kansas State vs Iowa analytics and betting insights. Beta launching August 30th.">
+    <meta name="twitter:image" content="https://gameday-plus.com/GDAPP.jpg">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "GamedayPlus",
+      "url": "https://gameday-plus.com/",
+      "logo": "https://gameday-plus.com/GDAPP.jpg",
+      "sameAs": [
+        "https://x.com/gamedayplus",
+        "https://www.instagram.com/gamedayplus",
+        "https://www.youtube.com/@gamedayplus"
+      ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "GamedayPlus",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "Web, iOS",
+      "url": "https://gameday-plus.com/",
+      "description": "College football analytics and betting intelligence platform featuring AI predictions, EV calculator, arbitrage detection, live odds, and community.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"FAQPage",
+      "mainEntity":[
+        {
+          "@type":"Question",
+          "name":"Does GamedayPlus take wagers or operate as a sportsbook?",
+          "acceptedAnswer":{"@type":"Answer","text":"No. GamedayPlus is an analytics and community platform. We don't accept or process wagers."}
+        },
+        {
+          "@type":"Question",
+          "name":"What betting tools are included?",
+          "acceptedAnswer":{"@type":"Answer","text":"AI model-driven predictions, expected value (EV) calculators, line movement tracking, and arbitrage detection features."}
+        },
+        {
+          "@type":"Question",
+          "name":"Which college football coverage can I expect?",
+          "acceptedAnswer":{"@type":"Answer","text":"Full FBS coverage including SEC, Big Ten, Big 12, ACC, Pac-12, with historical data and matchup tools. Complete Week Zero coverage including early season games like Kansas State vs Iowa."}
+        },
+        {
+          "@type":"Question",
+          "name":"Do you cover Week Zero college football games?",
+          "acceptedAnswer":{"@type":"Answer","text":"Yes! GamedayPlus provides comprehensive coverage of Week Zero games, including early season matchups like Kansas State vs Iowa, with AI predictions and betting analytics."}
+        },
+        {
+          "@type":"Question",
+          "name":"When does GamedayPlus fully launch?",
+          "acceptedAnswer":{"@type":"Answer","text":"GamedayPlus launches August 30th, 2025. Beta access available now via TestFlight."}
+        }
+      ]
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: #000000;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Pitch black glassy background - FIXED */
+        .space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: 
+                linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 50%, rgba(255,255,255,0.01) 100%),
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.015) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.015) 0%, transparent 50%),
+                #000000;
+            backdrop-filter: blur(0.5px);
+            z-index: 1;
+        }
+
+        /* Add subtle glass shine overlay */
+        .space-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.008) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 40%, rgba(255,255,255,0.005) 60%, transparent 80%);
+            pointer-events: none;
+        }
+
+        /* Glossy reflection effect */
+        .space-background::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(ellipse at center, rgba(255,255,255,0.01) 0%, transparent 70%);
+            animation: subtleShine 8s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes subtleShine {
+            0%, 100% { 
+                transform: rotate(0deg) scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.1);
+                opacity: 0.1;
+            }
+        }
+
+        /* Enhanced particle system for glassy effect */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: twinkle 4s infinite ease-in-out;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .particle.red {
+            background: linear-gradient(135deg, 
+                rgb(204, 0, 28) 0%,     /* #CC001C */
+                rgb(161, 0, 20) 25%,    /* #A10014 */ 
+                rgb(115, 0, 13) 50%,    /* #73000D */
+                rgb(161, 0, 20) 75%,    /* #A10014 */
+                rgb(204, 0, 28) 100%    /* #CC001C */
+            );
+            box-shadow: 0 0 8px rgba(204, 0, 28, 0.6), 0 0 16px rgba(204, 0, 28, 0.3);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0; 
+                transform: scale(0.3);
+                filter: brightness(0.5);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1);
+                filter: brightness(1.2);
+            }
+        }
+
+        /* Main content container */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Main headline */
+        .main-headline {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            background: linear-gradient(135deg, 
+                rgb(204, 0, 28) 0%,     /* #CC001C */
+                rgb(161, 0, 20) 25%,    /* #A10014 */ 
+                rgb(115, 0, 13) 50%,    /* #73000D */
+                rgb(161, 0, 20) 75%,    /* #A10014 */
+                rgb(204, 0, 28) 100%    /* #CC001C */
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: rgb(204, 0, 28); /* Fallback color */
+            margin-bottom: 1.5rem;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: #cccccc;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        /* Launch countdown */
+        .launch-countdown {
+            text-align: center;
+            margin: 4rem 0;
+            padding: 0;
+        }
+
+        .countdown-text {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #cccccc;
+            margin-bottom: 2rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            text-align: center;
+            min-width: 120px;
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            box-shadow: none;
+        }
+
+        .time-number {
+            display: block;
+            font-size: 5rem;
+            font-weight: 300;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, 
+                rgb(204, 0, 28) 0%,
+                rgb(161, 0, 20) 50%,
+                rgb(204, 0, 28) 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            letter-spacing: 0.1em;
+        }
+
+        .time-label {
+            display: block;
+            font-size: 1.6rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 16px;
+            font-weight: 300;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* Explore button */
+        .explore-btn {
+            background: linear-gradient(135deg, 
+                rgb(204, 0, 28) 0%,     /* #CC001C */
+                rgb(161, 0, 20) 25%,    /* #A10014 */ 
+                rgb(115, 0, 13) 50%,    /* #73000D */
+                rgb(161, 0, 20) 75%,    /* #A10014 */
+                rgb(204, 0, 28) 100%    /* #CC001C */
+            );
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(204, 0, 28, 0.4);
+            position: relative;
+            overflow: hidden;
+            margin: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .explore-btn:hover {
+            background: linear-gradient(135deg, 
+                rgb(184, 0, 25) 0%,     
+                rgb(145, 0, 18) 25%,    
+                rgb(100, 0, 11) 50%,    
+                rgb(145, 0, 18) 75%,    
+                rgb(184, 0, 25) 100%    
+            );
+            box-shadow: 0 0 30px rgba(204, 0, 28, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .explore-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .explore-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Glassy image container */
+        .app-preview {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .glassy-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            max-width: 1000px;
+            width: 90%;
+        }
+
+        .glassy-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .app-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            display: block;
+        }
+
+        .preview-label {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #cccccc;
+            text-align: center;
+            margin-top: 15px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Interactive arrow pointing to TestFlight button */
+        .arrow-pointer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            animation: arrowBounce 2s infinite ease-in-out;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .arrow-pointer:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .arrow-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, 
+                rgb(204, 0, 28) 0%,
+                rgb(161, 0, 20) 50%,
+                rgb(204, 0, 28) 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            transform: rotate(180deg); /* Point downward */
+        }
+
+        .arrow-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: #cccccc;
+            margin-left: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        @keyframes arrowBounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-8px);
+            }
+            60% {
+                transform: translateY(-4px);
+            }
+        }
+
+        /* Features section */
+        .features-section {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 20px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(204, 0, 28, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(204, 0, 28, 0.6);
+            box-shadow: 0 10px 30px rgba(204, 0, 28, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #CC001C;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .feature-description {
+            color: #cccccc;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* FAQ section */
+        .faq-section {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 20px;
+        }
+
+        .faq-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, 
+                rgb(204, 0, 28) 0%,
+                rgb(161, 0, 20) 50%,
+                rgb(204, 0, 28) 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(204, 0, 28, 0.2);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            color: #cccccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(204, 0, 28, 0.1);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(204, 0, 28, 0.2);
+        }
+
+        .footer-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer {
+            color: #999;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-headline {
+                font-size: clamp(2.5rem, 7vw, 4.5rem);
+            }
+            
+            .countdown-timer {
+                gap: 15px;
+            }
+            
+            .time-number {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .explore-btn {
+                padding: 12px 30px;
+                font-size: 0.9rem;
+            }
+            
+            .countdown-timer {
+                gap: 10px;
+            }
+            
+            .time-unit {
+                min-width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Space background with particles -->
+    <div class="space-background"></div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <h1 class="main-headline">WELCOME TO GAMEDAY+</h1>
+        <p class="subtitle">The Ultimate College Football Intelligence Platform</p>
+        <p class="subtitle" style="font-size: 0.9rem; margin-top: 10px; color: #cccccc;">Week Zero Coverage | Kansas State vs Iowa Predictions | Early Season Analytics</p>        <div class="launch-countdown">
+            <div class="countdown-text">Full Launch Countdown</div>
+            <div class="countdown-timer" id="countdown">
+                <div class="time-unit">
+                    <span class="time-number" id="days">--</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="hours">--</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="minutes">--</span>
+                    <span class="time-label">Minutes</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="seconds">--</span>
+                    <span class="time-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="app-preview">
+            <div class="glassy-container">
+                <img src="GDATEST.png" alt="GamedayPlus App Preview" class="app-image">
+                <div class="arrow-pointer" onclick="document.querySelector('.explore-btn').scrollIntoView({behavior: 'smooth'})">
+                    <div class="arrow-icon">↑</div>
+                    <div class="arrow-text">Try It Now</div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="https://testflight.apple.com/join/f5pCmXyr" target="_blank" class="explore-btn">Join Beta on TestFlight</a>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-title">AI-Powered Predictions</div>
+                <div class="feature-description">Advanced machine learning models analyze 500+ data points to deliver college football picks with superior accuracy against the spread. Complete Week Zero coverage including Kansas State vs Iowa predictions.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">EV Calculator & Arbitrage</div>
+                <div class="feature-description">Professional-grade expected value calculations and real-time arbitrage detection across multiple sportsbooks for guaranteed profit opportunities.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">Week Zero & Early Season Coverage</div>
+                <div class="feature-description">Get ahead of the competition with comprehensive Week Zero game analysis, including early season matchups like Kansas State vs Iowa, with detailed predictions and betting insights.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">Live Odds & Line Movement</div>
+                <div class="feature-description">Track line movements, steam moves, and consensus data in real-time across all major sportsbooks and betting markets for all CFB games including Week Zero.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">FanHub Community</div>
+                <div class="feature-description">Connect with college football fans, share insights, participate in prediction contests, and engage in real-time game discussions.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">Advanced Analytics Engine</div>
+                <div class="feature-description">Deep dive into team metrics, player performance, historical trends, and matchup analysis with professional-grade sports analytics tools.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">Matchup Simulator</div>
+                <div class="feature-description">Run game scenarios with detailed team metrics, recent form analysis, and pace factors to predict outcomes and betting edges for early season games.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">Does GamedayPlus take wagers or operate as a sportsbook?</div>
+            <div class="faq-answer">No. GamedayPlus is an analytics and community platform. We don't accept or process wagers.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">What betting tools are included?</div>
+            <div class="faq-answer">AI model-driven predictions, expected value (EV) calculators, line movement tracking, and arbitrage detection features.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Which college football coverage can I expect?</div>
+            <div class="faq-answer">Full FBS coverage including SEC, Big Ten, Big 12, ACC, Pac-12, with historical data and matchup tools. Complete Week Zero coverage including early season games like Kansas State vs Iowa.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Do you cover Week Zero college football games?</div>
+            <div class="faq-answer">Yes! GamedayPlus provides comprehensive coverage of Week Zero games, including early season matchups like Kansas State vs Iowa, with AI predictions and betting analytics.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">When does GamedayPlus fully launch?</div>
+            <div class="faq-answer">GamedayPlus launches August 30th, 2025. Beta access is available now via TestFlight.</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-text">© 2025 GamedayPlus. Built for College Football Superfans.</div>
+        <div class="disclaimer">
+            For informational and educational purposes only. We do not accept wagers. Must be 21+ to bet. 
+            If you have a gambling problem, please seek help at <a href="https://www.ncpgambling.org/" style="color: #CC001C;">ncpgambling.org</a>.
+        </div>
+    </div>
+
+    <script>
+        // Create enhanced particles with full coverage
+        function createParticles() {
+            const particleCount = 250;
+            const container = document.querySelector('.space-background');
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Some particles are red
+                if (Math.random() < 0.12) {
+                    particle.classList.add('red');
+                }
+                
+                // Random size between 1-4px
+                const size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random position across entire screen
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // Random animation delay
+                particle.style.animationDelay = Math.random() * 4 + 's';
+                
+                // Random animation duration
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Countdown Timer
+        function updateCountdown() {
+            const launchDate = new Date('August 30, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = '<div class="time-unit"><span class="time-number">LAUNCHED!</span></div>';
+            }
+        }
+
+        // Add button click effect
+        function setupButton() {
+            const button = document.querySelector('.explore-btn');
+            if (button) {
+                button.addEventListener('click', function(e) {
+                    // Create ripple effect
+                    const ripple = document.createElement('span');
+                    const rect = button.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    button.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            setupButton();
+            updateCountdown();
+            
+            // Update countdown every second
+            setInterval(updateCountdown, 1000);
+        });
+
+        // Ripple effect for button
+        const style = document.createElement('style');
+        style.textContent = `
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                pointer-events: none;
+            }
+
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
