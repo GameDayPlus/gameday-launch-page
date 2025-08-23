@@ -419,6 +419,87 @@
         .font-orbitron, h1, h2, h3, h4, h5, h6, .text-lg, .text-xl, .text-2xl, .text-3xl, .text-4xl, .text-5xl, .text-6xl, .text-sm, .text-xs, p, span, div {
             font-family: 'Orbitron', monospace;
         }
+        @media (max-width: 600px) {
+            body {
+                padding: 0;
+                margin: 0;
+                font-size: 1rem;
+                background: #f8f8f8;
+            }
+            .main-container, .card, .inner-card, .game-section {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                box-sizing: border-box;
+                border-radius: 18px !important;
+                margin: 0 0 18px 0 !important;
+                padding: 10px !important;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            }
+            .card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-width: 0;
+                border-radius: 18px;
+                padding: 12px 6px;
+            }
+            .inner-card {
+                flex: 1 1 100%;
+                min-width: 0;
+                border-radius: 14px;
+                margin: 6px 0;
+                padding: 8px 4px;
+                box-shadow: none;
+            }
+            .game-section {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 10px !important;
+                padding: 0 !important;
+            }
+            .team-logo {
+                width: 70px !important;
+                height: 70px !important;
+                margin: 0 8px !important;
+            }
+            .game-title {
+                font-size: 1.2rem !important;
+                text-align: center !important;
+                margin: 10px 0 6px 0 !important;
+            }
+            .prediction-row {
+                flex-direction: column !important;
+                gap: 8px !important;
+                width: 100% !important;
+                align-items: stretch !important;
+            }
+            .prediction-card {
+                width: 100% !important;
+                margin: 0 !important;
+                border-radius: 12px !important;
+                padding: 8px 4px !important;
+                font-size: 1rem !important;
+            }
+            .join-beta-btn {
+                width: 100%;
+                font-size: 1.1rem !important;
+                padding: 14px 0 !important;
+                border-radius: 18px !important;
+                margin: 12px 0 !important;
+            }
+            .header-logo {
+                width: 120px !important;
+                margin: 0 auto 10px auto !important;
+                display: block !important;
+            }
+            .site-description {
+                font-size: 1rem !important;
+                text-align: center !important;
+                margin: 10px 0 18px 0 !important;
+                padding: 0 8px !important;
+            }
+        }
 
         /* Ultra-modern glassmorphism background */
         .ultra-background {
