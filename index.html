@@ -1165,10 +1165,19 @@
         }
 
         .join-beta-btn {
-            border-radius: 18px;
+            border-radius: 32px;
             position: relative;
-            background: var(--primary-gradient);
-            box-shadow: 0 0 20px 4px rgba(204, 0, 28, 0.3), 0 2px 8px rgba(161, 0, 20, 0.15);
+            background: linear-gradient(90deg, #b8001c 60%, #d32f2f 100%);
+            box-shadow: 0 4px 16px rgba(184,0,28,0.15);
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            padding: 14px 32px;
+            width: 90vw;
+            max-width: 320px;
+            margin: 0 auto;
+            display: block;
+            transition: box-shadow 0.2s;
         }
 
         .join-beta-btn::after {
@@ -1716,20 +1725,13 @@
             }
 
             .pick-item {
-                padding: 16px;
-                margin-bottom: 16px;
+                font-size: 0.95em !important;
+                border-radius: 16px !important;
+                padding: 10px 6px !important;
+                margin-bottom: 12px !important;
             }
-
-            .pick-number {
-                font-size: 1.1rem;
-            }
-
-            .pick-description {
-                font-size: 0.85rem;
-            }
-
-            .pick-confidence {
-                font-size: 0.8rem;
+            .pick-number, .pick-description, .pick-confidence {
+                font-size: 0.9em !important;
             }
 
             .header-logo {
